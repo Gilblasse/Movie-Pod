@@ -1,0 +1,6 @@
+<%= form_for (action="/login") do%>
+    Your Email: <%= email_field_tag :email %>
+    Your Password: <%= password_field_tag :password %>
+
+    <%= submit_tag "Sign In" %>
+<% end %>

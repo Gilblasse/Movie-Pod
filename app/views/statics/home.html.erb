@@ -1,0 +1,35 @@
+
+
+<h4>Explore Airbnb</h4>
+
+<div class="card explore_card mb-5">
+  <div class="card-body">
+    Stays
+  </div>
+</div>
+
+<div class="mb-5">
+    <div>
+        <h4>Airbnb Plus places to stay</h4>
+        <small>A selection of places to stay verified for quality and design.</small>
+    </div>
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <p class="lead">
+            <a class="btn btn-light btn-lg mt-4" href="#" role="button"> <small>Explore Stays ></small></a>
+        </p>
+    </div>
+    </div>
+</div>
+
+<%# LIST OF PROPERTIES FOR GUEST TO STAY AT %>
+<div>
+    <%= link_to content_tag(:h4, "Places to stay around the world  >"), "#" %>
+
+    <ul>
+        <% Property.all.each do |property| %>
+            <li> <%= property %> </li>
+        <% end %>
+    </ul> 
+
+</div>
