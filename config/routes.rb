@@ -6,11 +6,12 @@ Rails.application.routes.draw do
 root to: 'statics#home'
 
 # Sessions
-get '/signup' => "sessions#new", as: 'signup'
+get '/signup' => "sessions#signup_form", as: 'signup'
 post '/signup' => "sessions#create"
-get '/login' => "sessions#login_form"
+get '/login' => "sessions#login_form", as:"login"
 post '/login' => "sessions#login"
 delete '/logout' => "sessions#destroy"
+get '/auth/:provider/callback' => 'sessions#ominauth'
 
 
 # Host

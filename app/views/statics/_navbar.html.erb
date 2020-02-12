@@ -1,5 +1,5 @@
 <li class="nav-item ">
-  <a class="nav-link disabled" href="#">Become a host</a>
+    <%= link_to "Become a host", login_path(type: 'become-a-host'), class: "nav-link" %>
 </li>
 
 <% if logged_in? %>
@@ -8,10 +8,23 @@
   </li>
 <% else %>
   <li class="nav-item">
-    <%= link_to "Sign up", signup_path, class: "nav-link" %>
+    <%# binding.pry %>
+    
+    
+    <% if params[:type] %>
+      <%= link_to "Sign up", signup_path(type: 'become-a-host'), class: "nav-link" %>
+    <% else %>
+      <%= link_to "Sign up", signup_path, class: "nav-link" %>
+    <% end %>
   </li>
 
   <li class="nav-item">
     <%= link_to "Log in", '/login' , class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Login w/ Facebook", '/auth/facebook' , class: "nav-link"%>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Log in w/ Google", '/auth/google_oauth2' , class: "nav-link"%>
   </li>
 <% end %>

@@ -1,21 +1,10 @@
-<% flash.each do |type, msg| %>
-  <div class="alert alert-<%=type%>" role="alert"> 
-    <%= msg %> <%= link_to 'Sign Up', signup_path%>
-  </div>
-<% end %>
-
-<% if @user.try(:errors) %>
-    <ul>
-        <% @user.errors.full_messages.each do |msg| %>
-            <li>msg</li>
-        <% end %>
-    </ul>
-<% end %>
-
-
-<%= form_for (action="/login") do%>
+<%= form_tag login_path do%>
     Your Email: <%= email_field_tag :email %>
     Your Password: <%= password_field_tag :password %>
 
+    
+    <% if params[:type] %>
+        <%=hidden_field_tag 'type', params[:type] %>
+    <% end %>
     <%= submit_tag "Sign In" %>
 <% end %>

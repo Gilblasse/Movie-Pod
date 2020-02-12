@@ -1,9 +1,10 @@
-<h1> <%=@user.name%> </h1>
-<h1> <%=@user.email%> </h1>
+<h1> Name: <%=@user.name%> </h1>
+<h1> Email: <%=@user.email%> </h1>
 <h1> <%=current_user.inspect%> </h1>
-<h1> <%=session[:current_user_id].inspect%> </h1>
-
-
+<h1> Session ID: <%=session[:current_user_id].inspect%> </h1>
+<h1> Profile: <%=@user.profile%> </h1>
+<h1> Guest Profile ID:<%=@user.profile.try(:guest_profile_id)%> </h1>
+<h1> Guest Profile:<%=@user.profile.try(:guest_profile)%> </h1>
 <%# <% if @user.avatar.nil? %>
     <%#image_tag(@user.avatar)%>
 <%# <% end %>

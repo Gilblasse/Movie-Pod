@@ -1,0 +1,15 @@
+<%= form_tag signup_path do %>
+    Name: <%=text_field_tag 'user[name]'%> <br>
+    Email: <%=email_field_tag 'user[email]' %> <br>
+    Password: <%=password_field_tag 'user[password]'%> <br><br>
+    
+    <% if params[:type] %>
+        <%=hidden_field_tag 'user[profile]', params[:type] %>
+    <% else %>
+        <%=hidden_field_tag 'user[profile]', "become-a-guest" %>
+    <% end %>
+
+
+    <%=submit_tag%>
+<%end%>
+

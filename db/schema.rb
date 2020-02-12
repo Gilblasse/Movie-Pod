@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_050133) do
     t.string "city"
     t.string "country"
     t.text "bio"
+    t.integer "guest_profile_id"
     t.boolean "super_host"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
