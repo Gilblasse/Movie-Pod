@@ -19,14 +19,12 @@ class SessionsController < ApplicationController
 
     def login 
         @user = User.find_by(email: params[:email]).try(:authenticate, params[:password])
-        binding.pry
         if @user 
             session[:current_user_id] = @user.id
             if @user.profile_type == "Guest" && !!params[:type]
                 new_user_type
-                binding.pry
             end 
-            redirect_to  @user
+            redirect_to  appropriate_path
         else 
             redirect_to login_path
         end
@@ -60,6 +58,15 @@ class SessionsController < ApplicationController
 
     def auth
         request.env['omniauth.auth']
+    end
+
+    def appropriate_path
+        binding.pry
+        if @user.profile_type == "Guest"
+            root_path
+        else
+            host_path @user
+        end
     end
 
     def new_user_profile

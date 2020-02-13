@@ -4,7 +4,7 @@
 
 <div class="card explore_card mb-5">
   <div class="card-body">
-    Stays
+    <%=Property.all.sample.title%> Stays
   </div>
 </div>
 
@@ -16,7 +16,7 @@
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <p class="lead">
-            <a class="btn btn-light btn-lg mt-4" href="#" role="button"> <small>Explore Stays ></small></a>
+            <a class="btn btn-light btn-lg mt-4" href="#" role="button">Explore Stays ></a>
         </p>
     </div>
     </div>
@@ -25,10 +25,10 @@
 <%# LIST OF PROPERTIES FOR GUEST TO STAY AT %>
 <div>
     <%= link_to content_tag(:h4, "Places to stay around the world  >"), "#" %>
-
+    <%# binding.pry %>
     <ul>
         <% Property.all.each do |property| %>
-            <li> <%= property %> </li>
+            <%# <li> <%= image_tag(property.try(:images)) %> 
         <% end %>
     </ul> 
 

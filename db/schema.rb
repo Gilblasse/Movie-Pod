@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_10_050133) do
+ActiveRecord::Schema.define(version: 2020_02_12_212225) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_02_10_050133) do
 
   create_table "properties", force: :cascade do |t|
     t.string "title"
-    t.string "type"
+    t.string "classification"
     t.text "description"
     t.text "amenities"
     t.integer "bathrooms"
@@ -64,10 +64,12 @@ ActiveRecord::Schema.define(version: 2020_02_10_050133) do
     t.text "availability"
     t.string "check_in"
     t.string "check_out"
-    t.integer "bedrooms"
+    t.integer "beds"
     t.integer "host_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "address"
+    t.string "zip"
     t.index ["host_id"], name: "index_properties_on_host_id"
   end
 

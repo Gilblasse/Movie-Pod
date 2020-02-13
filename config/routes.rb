@@ -15,8 +15,10 @@ get '/auth/:provider/callback' => 'sessions#ominauth'
 
 
 # Host
-
-
+get '/hosts/:id' => "hosts#show", as: 'host'
+resources :hosts do
+  resources :properties
+end
 
 
 # USERS

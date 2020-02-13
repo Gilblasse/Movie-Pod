@@ -1,16 +1,16 @@
-<li class="nav-item ">
+
+<% if current_user.try(:profile_type) != "Host" %>
+  <li class="nav-item ">
     <%= link_to "Become a host", login_path(type: 'become-a-host'), class: "nav-link" %>
 </li>
+<% end %>
 
 <% if logged_in? %>
   <li class="nav-item">
     <%= link_to "Log out", '/logout', method: 'delete', class: "nav-link" %>
   </li>
 <% else %>
-  <li class="nav-item">
-    <%# binding.pry %>
-    
-    
+  <li class="nav-item">    
     <% if params[:type] %>
       <%= link_to "Sign up", signup_path(type: 'become-a-host'), class: "nav-link" %>
     <% else %>
