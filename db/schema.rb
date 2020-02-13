@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_212225) do
+ActiveRecord::Schema.define(version: 2020_02_13_152312) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,80 +33,28 @@ ActiveRecord::Schema.define(version: 2020_02_12_212225) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "guests", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "hosts", force: :cascade do |t|
-    t.string "city"
-    t.string "country"
-    t.text "bio"
-    t.integer "guest_profile_id"
-    t.boolean "super_host"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "properties", force: :cascade do |t|
+  create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.string "classification"
-    t.text "description"
-    t.text "amenities"
-    t.integer "bathrooms"
-    t.integer "capacity"
-    t.text "rules"
-    t.integer "price"
-    t.text "allowed"
-    t.string "state"
-    t.string "city"
-    t.integer "cleaning_fee"
-    t.text "availability"
-    t.string "check_in"
-    t.string "check_out"
-    t.integer "beds"
-    t.integer "host_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "address"
-    t.string "zip"
-    t.index ["host_id"], name: "index_properties_on_host_id"
-  end
-
-  create_table "reservations", force: :cascade do |t|
-    t.integer "num_guest"
-    t.integer "service_fee"
-    t.integer "status"
-    t.integer "guest_id", null: false
-    t.integer "property_id", null: false
-    t.integer "review_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["guest_id"], name: "index_reservations_on_guest_id"
-    t.index ["property_id"], name: "index_reservations_on_property_id"
-    t.index ["review_id"], name: "index_reservations_on_review_id"
+    t.string "description"
+    t.integer "user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
     t.integer "stars"
     t.text "comment"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
+    t.string "username"
     t.string "email"
-    t.string "profile_id"
-    t.string "profile_type"
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "properties", "hosts"
-  add_foreign_key "reservations", "guests"
-  add_foreign_key "reservations", "properties"
-  add_foreign_key "reservations", "reviews"
 end
