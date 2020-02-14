@@ -1,10 +1,19 @@
-<%= form_tag login_path do%>
-    Your Email: <%= email_field_tag :email %>
-    Your Password: <%= password_field_tag :password %>
-
-    
-    <% if params[:type] %>
-        <%=hidden_field_tag 'type', params[:type] %>
-    <% end %>
-    <%= submit_tag "Sign In" %>
+<% flash.each do |name,msg| %>
+    <div class="container">
+        <div class="alert alert-<%=name%> text-center w-50 mx-auto" role="alert">
+            <%= msg %>
+        </div>
+    </div>
 <% end %>
+
+<% if @user.try(:errors) %>
+    <% @user.errors.full_messages.each do |msg| %>
+        
+        <div class="alert alert-danger text-center w-50 mx-auto" role="alert">
+            <%= msg %>
+        </div>
+
+    <% end %>
+<% end %>
+
+<%=render :partial => 'form', :locals => {:url_path => login_path, :label => "Log in"}%>

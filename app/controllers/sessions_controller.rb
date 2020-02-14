@@ -5,11 +5,13 @@ class SessionsController < ApplicationController
     end
 
     def create
-        @user = User.new(new_user_params)
-        new_user_profile
-        @user.save 
-        session[:current_user_id] = @user.id
-        redirect_to user_path @user
+        @user = User.new(user_params)
+        if @user.save 
+            session[:current_user_id] = @user.id
+            redirect_to root_path
+        else
+            render :signup_form  
+        end
     end
 
 
@@ -18,27 +20,31 @@ class SessionsController < ApplicationController
 
 
     def login 
-        @user = User.find_by(email: params[:email]).try(:authenticate, params[:password])
-        if @user 
+        if user_params[:username].empty? || user_params[:password].empty?
+            @user = User.new(user_params)
+            render :login_form if !@user.valid?
+
+        elsif @user = User.find_by(username: user_params[:username]).try(:authenticate, user_params[:password])
             session[:current_user_id] = @user.id
-            if @user.profile_type == "Guest" && !!params[:type]
-                new_user_type
-            end 
-            redirect_to  appropriate_path
-        else 
-            redirect_to login_path
+            redirect_to root_path, success: "Welcome #{@user.username} you've been successfully Logged in"
+        else
+            redirect_to login_path, danger: 'Incorrect Password or Username'
         end
     end
 
-
     def ominauth
-        binding.pry
+        username = auth['info']['email'].split('@').first.split('.').first.capitalize
+        @user = User.find_or_create_by(uid: auth['uid']) do |u|
+            u.username = username
+            u.password = auth[:credentials][:token][0..10]
+        end
+        session[:current_user_id] = @user.id
+        redirect_to root_path, success: "Welcome #{@user.username} you've been successfully Logged in"
     end
-
 
     def destroy
         session.delete :current_user_id 
-        redirect_to '/'
+        redirect_to root_path
     end
 
 
@@ -52,42 +58,12 @@ class SessionsController < ApplicationController
     
     private 
     
-    def new_user_params
-        params.require(:user).permit(:name,:email,:password)
+    def user_params
+        params.require(:user).permit(:username, :password)
     end
 
     def auth
         request.env['omniauth.auth']
-    end
-
-    def appropriate_path
-        binding.pry
-        if @user.profile_type == "Guest"
-            root_path
-        else
-            host_path @user
-        end
-    end
-
-    def new_user_profile
-        profile_type = params[:user][:profile].split('-').last.capitalize.safe_constantize
-        if  profile_type
-            @user.profile =  profile_type.new
-        else  
-            @user.profile =  Guest.new
-        end
-    end
-
-    def new_user_type
-        profile_type = params[:type].split('-').last.capitalize.safe_constantize
-
-        if  !!profile_type
-            guest_id = @user.profile_id
-            @user.update(profile: profile_type.create)
-            @user.profile.update(guest_profile_id: guest_id)
-        else  
-            redirect_to login_path
-        end
     end
 
 end

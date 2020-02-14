@@ -1,3 +1,0 @@
-module StaticsHelper
-
-end

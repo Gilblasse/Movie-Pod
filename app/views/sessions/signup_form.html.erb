@@ -1,15 +1,19 @@
-<%= form_tag signup_path do %>
-    Name: <%=text_field_tag 'user[name]'%> <br>
-    Email: <%=email_field_tag 'user[email]' %> <br>
-    Password: <%=password_field_tag 'user[password]'%> <br><br>
-    
-    <% if params[:type] %>
-        <%=hidden_field_tag 'user[profile]', params[:type] %>
-    <% else %>
-        <%=hidden_field_tag 'user[profile]', "become-a-guest" %>
+<% flash.each do |name,msg| %>
+    <div class="container">
+        <div class="alert alert-<%=name%>" role="alert">
+            <%= msg %>
+        </div>
+    </div>
+<% end %>
+
+<% if @user.try(:errors) %>
+    <% @user.errors.full_messages.each do |msg| %>
+        
+        <div class="alert alert-danger text-center w-50 mx-auto" role="alert">
+            <%= msg %>
+        </div>
+
     <% end %>
+<% end %>
 
-
-    <%=submit_tag%>
-<%end%>
-
+<%=render :partial => 'form', :locals => {:url_path => signup_path, :label => "Sign Up" }%>

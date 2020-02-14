@@ -1,35 +1,25 @@
-
-
-<h4>Explore Airbnb</h4>
-
-<div class="card explore_card mb-5">
-  <div class="card-body">
-    <%=Property.all.sample.title%> Stays
-  </div>
-</div>
-
-<div class="mb-5">
-    <div>
-        <h4>Airbnb Plus places to stay</h4>
-        <small>A selection of places to stay verified for quality and design.</small>
-    </div>
-    <div class="jumbotron jumbotron-fluid">
+<% flash.each do |name,msg| %>
     <div class="container">
-        <p class="lead">
-            <a class="btn btn-light btn-lg mt-4" href="#" role="button">Explore Stays ></a>
-        </p>
+        <div class="alert alert-<%=name%>" role="alert">
+            <%= msg %>
+        </div>
     </div>
-    </div>
-</div>
+<% end %>
 
-<%# LIST OF PROPERTIES FOR GUEST TO STAY AT %>
-<div>
-    <%= link_to content_tag(:h4, "Places to stay around the world  >"), "#" %>
-    <%# binding.pry %>
-    <ul>
-        <% Property.all.each do |property| %>
-            <%# <li> <%= image_tag(property.try(:images)) %> 
-        <% end %>
-    </ul> 
 
-</div>
+Logged IN: <%= logged_in? %><br>
+Current User: <%= current_user.try(:username) %> <br>
+Movie Count: <%= Movie.count %>
+<ul>
+    <% Movie.all.each do |movie| %>
+        <div> <%= movie.title %> 
+            <%= image_tag(movie.thumbnail) %>
+        </div> <%#= video_tag(url_for(movie.video), controls: '') %>
+    <% end %>
+</ul>
+
+<ul>
+    <% User.all.each do |user| %>
+        <li><%= user.id %> - <%= user.username %> </li>
+    <% end %>
+</ul>
