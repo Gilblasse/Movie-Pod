@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MoviePOD</title>
+    <title>VideoPOD</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -14,15 +14,17 @@
   <body>
   
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/"> MoviePOD </a>
+      <a class="navbar-brand" href="/"> VideoPOD </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <form class="form-inline mr-auto mt-2 mt-lg-0" action="/" method="GET">
-          <input id="search" class="form-control mr-sm-2" name="query" type="search" placeholder="Search">
-        </form>
+        <%# <form class="form-inline mr-auto mt-2 mt-lg-0" action="/" method="GET"> %>
+          <%= form_tag movies_path, method: :get, class: "form-inline mr-auto mt-2 mt-lg-0" do %>
+            <input id="search" class="form-control mr-sm-2" name="query" type="search" placeholder="Search">
+          <% end %>
+        <%# </form> %>
         
 
         <ul class="navbar-nav my-2 my-lg-0">

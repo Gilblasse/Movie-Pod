@@ -1,25 +1,11 @@
-<% flash.each do |name,msg| %>
-    <div class="container">
-        <div class="alert alert-<%=name%>" role="alert">
-            <%= msg %>
-        </div>
-    </div>
-<% end %>
 
-
-Logged IN: <%= logged_in? %><br>
-Current User: <%= current_user.try(:username) %> <br>
-Movie Count: <%= Movie.count %>
-<ul>
-    <% Movie.all.each do |movie| %>
-        <div> <%= movie.title %> 
-            <%= image_tag(movie.thumbnail) %>
-        </div> <%#= video_tag(url_for(movie.video), controls: '') %>
-    <% end %>
-</ul>
-
-<ul>
-    <% User.all.each do |user| %>
-        <li><%= user.id %> - <%= user.username %> </li>
-    <% end %>
-</ul>
+<div class="container">
+  <div class="row">
+        <% Movie.all.each do |movie| %>
+            <div class="col-sm movie-thumbnails text-center"> 
+                <%= link_to(image_tag(movie.thumbnail), movie_path(movie)) %>
+                <h4 class=""> <%= link_to(movie.title.titleize, movie_path(movie), class: "") %> </h4>
+            </div>
+        <% end %>
+  </div>
+</div>

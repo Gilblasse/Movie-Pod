@@ -1,43 +1,7 @@
 <h1>Movies#new</h1>
-<% flash.each do |name,msg| %>
-    <div class="container">
-        <div class="alert alert-<%=name%> text-center w-50 mx-auto" role="alert">
-            <%= msg %>
-        </div>
-    </div>
+<%#= @movie.errors.inspect %>
+<%@movie.errors.full_messages.each do |msg| %>
+    <h1> HELLO <%= msg %> </h1>
 <% end %>
 
-<% if @movie.try(:errors) %>
-    <% @movie.errors.full_messages.each do |msg| %>
-        
-        <div class="alert alert-danger text-center w-50 mx-auto" role="alert">
-            <%= msg %>
-        </div>
-
-    <% end %>
-<% end %>
-
-
-<%= form_with model: @movie, url: user_movies_path do |f| %>
-    <div class="form-group">
-        <%= f.text_field :title, class: "form-control", placeholder: "MOVIE TITLE" %>
-    </div>
-
-    <div class="form-group">
-        <%= f.text_area :description, class: "form-control", placeholder: "Describe The Movie" %>
-    </div>
-
-    <div class="custom-file mb-3">
-        <%= f.file_field :image, class: "custom-file-input" %>
-        <%= f.label :image, class: "custom-file-label"%>
-    </div> 
-
-    <div class="custom-file mb-5">
-        <%= f.file_field :video, class: "custom-file-input" %>
-        <%= f.label :video, class: "custom-file-label"%>
-    </div> 
-    
-    <%= f.submit "Upload", class: "btn btn-info"%>
-<% end %>
-
-
+<%= render partial: "form", locals: {video_path: user_movies_path, upload_type: "New Upload"} %>

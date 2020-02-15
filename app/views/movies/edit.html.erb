@@ -1,2 +1,3 @@
 <h1>Movies#edit</h1>
-<p>Find me in app/views/movies/edit.html.erb</p>
+<%= render partial: "form", locals: {video_path: user_movie_path, upload_type: "Edit Upload"} %>
+<%= link_to "Delete", user_movie_path(@movie), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger mt-3"%>

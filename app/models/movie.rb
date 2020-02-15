@@ -1,12 +1,23 @@
 class Movie < ApplicationRecord
     belongs_to :user
+    has_many :reviews
     has_one_attached :image
     has_one_attached :video
     validates :title, :description, presence: true 
+    validates :title, uniqueness: true
     validates :description, length: { minimum: 25 }
+    validates :genre, inclusion: { in: %w(Action Romance Comedy Horror Adventure Thriller Animation Western Drama Musical Biographical Fantasy Parody Mystery Family), message: "%{value} is not a valid Genre" }
     validate :image_type
     validate :video_type
 
+
+    def self.query(search)
+        where("title LIKE ? OR genre LIKE ?", "%#{search}%", "%#{search}%")
+    end
+
+    def similar_films
+        Movie.where("genre = ?", self.genre).where.not(title: self.title)
+    end
 
     def image_type
         if image.attached? && !image.content_type.in?(%w(image/jpeg image/png))
@@ -25,7 +36,7 @@ class Movie < ApplicationRecord
     end
 
     def thumbnail 
-        image.variant(resize: '300x300!').processed 
+        image.variant(resize: '300x400!').processed 
     end
 
 end

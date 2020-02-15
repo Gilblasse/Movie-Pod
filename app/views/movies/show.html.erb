@@ -1,2 +1,42 @@
-<h1>Movies#show</h1>
-<p>Find me in app/views/movies/show.html.erb</p>
+<h1> <%= @movie.title.capitalize %> - <%= @movie.genre %> </h1>
+
+<div>
+    <%= video_tag(url_for(@movie.video), controls: '',width:"90%") %>
+</div>
+
+<h4> Description </h4>
+<p> <%= @movie.description %> </p>
+
+
+
+<% if !@similar_movies.empty? %>
+    <h4 class="mt-5"> Similar Films </h4>
+    <ul> 
+        <% @similar_movies.each do |movie| %> 
+            <div class="movie-thumbnails"> 
+                <%= link_to(image_tag(movie.thumbnail), movie_path(movie)) %>
+                <h4 class="text-center"> <%= link_to(movie.title.titleize, movie_path(movie), class: "nav-link") %> </h4>
+            </div> 
+        <% end %>
+    </ul>
+<% end %>
+
+
+<h4>Comments</h4>
+
+<% if @movie.reviews.empty? %>
+    <p> No Comments ...</p>
+    <%= link_to "Add The First Comment", new_movie_review_path(@movie), class: "btn btn-info" %>
+<% else %>
+    <ul>
+        <% @movie.reviews.each do |review| %>
+            <li> 
+                <%= review.user.username %> - 
+                <%= review.stars %> 
+                <%= review.comment %> 
+            </li>
+        <% end %>
+
+    </ul>
+    <%= link_to "Add Review", new_movie_review_path(@movie), class: "btn btn-info" %>
+<% end %>

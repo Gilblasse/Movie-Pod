@@ -1,2 +1,12 @@
-<h1>Movies#index</h1>
-<p>Find me in app/views/movies/index.html.erb</p>
+<% if @query_not_found %>
+    <h3><%= @query_not_found %> </h3>
+<% else %>
+    <h3> <%= params[:query].titleize %> </h3>
+
+    <% @movies.each do |movie| %>
+        <div class="movie-thumbnails"> 
+            <%= link_to(image_tag(movie.thumbnail), movie_path(movie)) %>
+            <h4 class="text-center"> <%= link_to(movie.title.titleize, movie_path(movie), class: "nav-link") %> </h4>
+        </div> 
+    <% end %>
+<% end %>

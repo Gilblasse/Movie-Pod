@@ -1,0 +1,11 @@
+<h1>Reviews#new</h1>
+<%= form_with model: @review, url: movie_reviews_path do |f| %>
+    <div class="field my-5">
+        <%= f.label :comment %><br>
+        <%= f.text_area :comment %>
+    </div>
+    <%= f.hidden_field :movie_id %>
+    <%= f.submit nil, class: "btn btn-info"%>
+
+
+<% end %>

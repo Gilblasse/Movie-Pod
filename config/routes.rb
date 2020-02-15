@@ -15,7 +15,11 @@ get '/auth/:provider/callback' => 'sessions#ominauth'
 
 
 resources :users do 
-  resources :movies, only: [:new,:create,:edit,:update,:delete]
+  resources :movies, only: [:new,:create,:edit,:update,:destroy]
+end
+
+resources :movies, only: [:index, :show] do 
+  resources :reviews, only: [:new, :create]
 end
 
 

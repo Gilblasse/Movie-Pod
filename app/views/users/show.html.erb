@@ -1,3 +1,27 @@
-<h1> Email: <%=@user.username%> </h1>
+<% flash.each do |name,msg| %>
+    <div class="alert alert-<%=name%> text-center" role="alert">
+        <%= msg %>
+    </div>
+<% end %>
+
+<h1> <%=@user.username%> Dashboard</h1>
+<div> <%= link_to "Add New Video", new_user_movie_path(@user) %> </div>
+<h3 class="mt-5"> Your Movie Uploads </h3>
+
+<% if @user.movies.empty? %>
+    <p> No videos Added ...</p>
+<% end %>
+
+<ul>
+    <% @user.movies.each do |movie| %>
+        <div class="movie-thumbnails"> 
+            <%= link_to(image_tag(movie.thumbnail), movie_path(movie))  %>
+            <h5 class="text-center"><%= movie.title.titleize %></h5>
+            <%= link_to "Edit", edit_user_movie_path(@user,movie), class: "btn btn-info"%>
+        </div>
+    <% end %>
+
+</ul>
+
 
 
