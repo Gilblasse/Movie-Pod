@@ -12,4 +12,5 @@ module ApplicationHelper
         @current_user ||= User.find(session[:current_user_id]) if logged_in?
     end
 
+
 end

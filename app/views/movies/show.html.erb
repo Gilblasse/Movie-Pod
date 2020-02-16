@@ -1,10 +1,22 @@
-<h1> <%= @movie.title.capitalize %> - <%= @movie.genre %> </h1>
+<%= render partial:"layouts/flash_alert" %>
+
+<div class="mb-3">
+    <h1> <%= @movie.title.capitalize %> </h1>
+    <div class="d-flex">
+        <div class="badge badge-pill badge-info pt-2"><%= @movie.genre %></div>
+        <div class="ml-2 pt-1"> 
+            <% @movie.rating.times do %>
+                <i class="fa fa-star"></i>
+            <% end %>
+        </div>
+    </div>
+</div>
 
 <div>
     <%= video_tag(url_for(@movie.video), controls: '',width:"90%") %>
 </div>
 
-<h4> Description </h4>
+<h4> Description </h4> 
 <p> <%= @movie.description %> </p>
 
 
@@ -31,8 +43,14 @@
     <ul>
         <% @movie.reviews.each do |review| %>
             <li> 
-                <%= review.user.username %> - 
-                <%= review.stars %> 
+                <%= review.user.username %> 
+                
+                <% if !review.stars.nil? %>
+                     <% review.stars.times do %>
+                        <i class="fa fa-star"></i>
+                     <% end %> 
+                <% end %>
+                
                 <%= review.comment %> 
             </li>
         <% end %>

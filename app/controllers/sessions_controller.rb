@@ -16,6 +16,7 @@ class SessionsController < ApplicationController
 
 
     def login_form
+        @user = User.new
     end
 
 
@@ -43,8 +44,10 @@ class SessionsController < ApplicationController
     end
 
     def destroy
+        @user = current_user
         session.delete :current_user_id 
-        redirect_to root_path
+        flash[:success] = "GoodBye #{@user.username} you've successfully Logged Out"
+        redirect_back(fallback_location: root_path)
     end
 
 

@@ -3,7 +3,7 @@ class StaticsController < ApplicationController
     
     def home
         if params[:query]
-            @stays = Property.search(params[:query])
+            # @stays = Property.search(params[:query])
         end
         
     end

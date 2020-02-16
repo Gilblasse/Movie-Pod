@@ -1,8 +1,4 @@
-<% flash.each do |name,msg| %>
-    <div class="alert alert-<%=name%> text-center" role="alert">
-        <%= msg %>
-    </div>
-<% end %>
+<%= render "layouts/flash_alert" %>
 
 <h1> <%=@user.username%> Dashboard</h1>
 <div> <%= link_to "Add New Video", new_user_movie_path(@user) %> </div>

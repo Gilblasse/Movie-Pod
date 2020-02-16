@@ -1,11 +1,18 @@
 <h1>Reviews#new</h1>
+<%= render partial:"layouts/errors", locals: {model: @review } %>
+
 <%= form_with model: @review, url: movie_reviews_path do |f| %>
-    <div class="field my-5">
-        <%= f.label :comment %><br>
-        <%= f.text_area :comment %>
+    <div class="rating">
+        <% (5).downto(1).each do |i|%>
+            <%= radio_button_tag "review[stars]", i %> <%= label_tag "review_stars_#{i}", "" %>
+        <% end %>
     </div>
+
+    <div class="form-group my-5">
+        <%= f.text_area :comment ,class: "form-control", rows:10%>
+    </div>
+
     <%= f.hidden_field :movie_id %>
     <%= f.submit nil, class: "btn btn-info"%>
-
 
 <% end %>

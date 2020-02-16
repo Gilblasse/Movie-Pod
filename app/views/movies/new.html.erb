@@ -1,7 +1,2 @@
 <h1>Movies#new</h1>
-<%#= @movie.errors.inspect %>
-<%@movie.errors.full_messages.each do |msg| %>
-    <h1> HELLO <%= msg %> </h1>
-<% end %>
-
-<%= render partial: "form", locals: {video_path: user_movies_path, upload_type: "New Upload"} %>
+<%= render partial: "form", locals: {video_path: user_movies_path, upload_type: "New Upload", model: @movie} %>

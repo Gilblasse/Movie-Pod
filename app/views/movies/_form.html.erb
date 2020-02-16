@@ -1,23 +1,8 @@
-<% flash.each do |name,msg| %>
-    <div class="container">
-        <div class="alert alert-<%=name%> text-center w-50 mx-auto" role="alert">
-            <%= msg %>
-        </div>
-    </div>
-<% end %>
-
-<% if @movie.try(:errors) %>
-    <% @movie.errors.full_messages.each do |msg| %>
-        
-        <div class="alert alert-danger text-center w-50 mx-auto" role="alert">
-            <%= msg %>
-        </div>
-
-    <% end %>
-<% end %>
+<%= render partial:"layouts/flash_alert" %>
+<%= render partial:"layouts/errors", locals: {model: model } %>
 
 
-<%= form_with model: @movie, url: video_path do |f| %>
+<%= form_with model: model, url: video_path do |f| %>
     <div class="form-group">
         <%= f.text_field :title, class: "form-control", placeholder: "MOVIE TITLE" %>
     </div>

@@ -15,6 +15,11 @@ class Movie < ApplicationRecord
         where("title LIKE ? OR genre LIKE ?", "%#{search}%", "%#{search}%")
     end
 
+    def rating
+       avg = Movie.where("title = ?", title).joins(:reviews).where("stars > ?",0).average(:stars)
+       avg.to_i
+    end
+
     def similar_films
         Movie.where("genre = ?", self.genre).where.not(title: self.title)
     end
@@ -36,7 +41,7 @@ class Movie < ApplicationRecord
     end
 
     def thumbnail 
-        image.variant(resize: '300x400!').processed 
+        image.variant(resize: '300x450!').processed 
     end
 
 end

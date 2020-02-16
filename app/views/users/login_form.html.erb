@@ -1,3 +1,5 @@
+<%= render partial:"layouts/errors", locals: {model: @user } %>
+
 <%= form_for (action="/login") do%>
     Your Email: <%= email_field_tag :email %>
     Your Password: <%= password_field_tag :password %>

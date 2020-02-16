@@ -1,5 +1,6 @@
 class MoviesController < ApplicationController
   include MoviesHelper
+  before_action :authorize?, only: [:new,:edit,:destroy]
 
   def index
     @movies = Movie.query(params[:query])
@@ -19,6 +20,7 @@ class MoviesController < ApplicationController
 
   def create
     @movie = current_user.movies.build(movie_params)
+
     if @movie.save
       redirect_to '/',success: "Your Video Was Successfully Added"
     else
