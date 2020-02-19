@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
         username = auth['info']['email'].split('@').first.split('.').first.capitalize
         @user = User.find_or_create_by(uid: auth['uid']) do |u|
             u.username = username
-            u.password = auth[:credentials][:token][0..10]
+            u.password = SecureRandom.base64(15)
         end
         session[:current_user_id] = @user.id
         redirect_to root_path, success: "Welcome #{@user.username} you've been successfully Logged in"

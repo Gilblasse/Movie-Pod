@@ -24,4 +24,8 @@ end
 
 
 
+%w( 404 422 500 503 ).each do |code|
+  get code  => "static#error", :code => code
+end
+
 end

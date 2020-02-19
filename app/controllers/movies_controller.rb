@@ -1,6 +1,8 @@
 class MoviesController < ApplicationController
   include MoviesHelper
   before_action :authorize?, only: [:new,:edit,:destroy]
+  before_action :auth_set_movie, only: [:edit,:update,:destroy]
+  before_action :set_movie, only: [:show]
 
   def index
     @movies = Movie.query(params[:query])
@@ -10,7 +12,6 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find_by(id: params[:id])
     @similar_movies = @movie.similar_films
   end
 
@@ -29,11 +30,9 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    @movie = Movie.find_by(id: params[:id])
   end
 
   def update
-    @movie = Movie.find_by(id: params[:id])
     if @movie.update(movie_params)
         redirect_to @movie.user, success: "#{@movie.title.titleize} was successfully Updated"
     else 
@@ -42,7 +41,6 @@ class MoviesController < ApplicationController
   end
 
   def destroy
-    @movie = Movie.find_by(id: params[:id])
     user = @movie.user
     title = @movie.title
     @movie.destroy
@@ -50,10 +48,39 @@ class MoviesController < ApplicationController
   end
 
 
+
+
+
+
   private 
 
   def movie_params 
     params.require(:movie).permit(:title,:description,:image,:video,:genre)
   end 
+
+  def auth_set_movie 
+    @movie = Movie.find_by(id: params[:id])
+    if @movie
+      if current_user.movies.include?(@movie)
+        @movie
+      else 
+        flash[:danger] = 'Your not Authorized To Access This Movie'
+        redirect_back(fallback_location: root_path)
+      end
+    else
+      flash[:danger] = "Movie Doesn't Exist"
+      redirect_back(fallback_location: root_path)
+    end
+  end
+
+  def set_movie 
+    @movie = Movie.find_by(id: params[:id])
+    if @movie
+      @movie
+    else
+      flash[:danger] = "Movie Doesn't Exist"
+      redirect_back(fallback_location: root_path)
+    end
+  end
 
 end

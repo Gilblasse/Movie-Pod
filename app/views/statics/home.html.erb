@@ -3,11 +3,8 @@
 
 <div class="container">
   <div class="row">
-        <% Movie.all.each do |movie| %>
-            <div class="col-sm movie-thumbnails text-center"> 
-                <%= link_to(image_tag(movie.thumbnail), movie_path(movie)) %>
-                <h4 class=""> <%= link_to(movie.title.titleize, movie_path(movie), class: "") %> </h4>
-            </div>
-        <% end %>
+      <% Movie.all.each do |movie| %>
+        <%= show_movie_thumbnails(movie) %>
+      <% end %>
   </div>
 </div>
